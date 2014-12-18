@@ -209,7 +209,7 @@ module Kitchen
       end
 
       def build_run_command(image_id)
-        cmd = "run -d -p 22"
+        cmd = config[:ssh_forward] ? "run -d -p #{config[:ssh_forward]}:22" : "run -d -p 22"
         Array(config[:forward]).each {|port| cmd << " -p #{port}"}
         Array(config[:dns]).each {|dns| cmd << " -dns #{dns}"}
         Array(config[:volume]).each {|volume| cmd << " -v #{volume}"}
